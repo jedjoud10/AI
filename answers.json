@@ -1,0 +1,77 @@
+[
+    {
+        "message": "hi",
+        "outputChoices": [
+            {
+                "choice": "Hi ! How are you today, <username> ?",
+                "bias": 0.44999999999999996,
+                "count": 2
+            },
+            {
+                "choice": "How are you today, <username> ?",
+                "bias": 0.95,
+                "count": 2
+            }
+        ]
+    },
+    {
+        "message": "im sad",
+        "outputChoices": [
+            {
+                "choice": "Aw that's not cool. Why are you sad <username> ?",
+                "bias": 0.95,
+                "count": 2
+            },
+            {
+                "choice": "What happened <username> ?",
+                "bias": 0.95,
+                "count": 2
+            }
+        ]
+    },
+    {
+        "message": "im happy",
+        "outputChoices": [
+            {
+                "choice": "That is very nice, <username> ",
+                "bias": 1,
+                "count": 1
+            },
+            {
+                "choice": "Me too ^",
+                "bias": 1,
+                "count": 1
+            }
+        ]
+    },
+    {
+        "message": "go kys",
+        "outputChoices": [
+            {
+                "choice": "Okay then, <username> ;-;",
+                "bias": 0.95,
+                "count": 2
+            },
+            {
+                "choice": "With what ?",
+                "bias": 1,
+                "count": 1
+            }
+        ]
+    },
+    {
+        "message": "I love you",
+        "outputChoices": [
+            {
+                "choice": "Me too, <username>~",
+                "bias": 1,
+                "count": 1
+            },
+            {
+                "choice": "Awww that's sweet",
+                "bias": 1,
+                "count": 1
+            }
+        ]
+    }
+]
