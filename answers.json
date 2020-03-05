@@ -4,13 +4,13 @@
         "outputChoices": [
             {
                 "choice": "Hi ! How are you today, <username> ?",
-                "bias": 0.44999999999999996,
-                "count": 2
+                "bias": 1,
+                "count": 1
             },
             {
                 "choice": "How are you today, <username> ?",
-                "bias": 0.95,
-                "count": 2
+                "bias": 1,
+                "count": 1
             }
         ]
     },
@@ -19,13 +19,13 @@
         "outputChoices": [
             {
                 "choice": "Aw that's not cool. Why are you sad <username> ?",
-                "bias": 0.95,
-                "count": 2
+                "bias": 1,
+                "count": 1
             },
             {
                 "choice": "What happened <username> ?",
-                "bias": 0.95,
-                "count": 2
+                "bias": 1,
+                "count": 1
             }
         ]
     },
@@ -49,8 +49,8 @@
         "outputChoices": [
             {
                 "choice": "Okay then, <username> ;-;",
-                "bias": 0.95,
-                "count": 2
+                "bias": 1,
+                "count": 1
             },
             {
                 "choice": "With what ?",

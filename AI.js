@@ -2,6 +2,8 @@ const fs = require('fs');
 
 var username = read('./data.json').username;
 
+
+
 function read(path) { return JSON.parse(fs.readFileSync(path)); }
 function write(data, path) { fs.writeFileSync(path, null); fs.writeFileSync(path, JSON.stringify(data, null, 4)); }
 
@@ -58,9 +60,10 @@ function addBiasForChoice(choice, bias)
     }
   }
 }
-function resetBiases()
+function resetAI()
 {
   var answers = read('./answers.json');
+  var data = read('./data.json');
   for (var m = 0; m < answers.length; m++) 
   {    
     for (var a = 0; a < answers[m].outputChoices.length; a++) 
@@ -69,6 +72,8 @@ function resetBiases()
       answers[m].outputChoices[a].bias = 1; 
     }
   }
+  data.username = "";
+  write(data, './data.json');
   write(answers, './answers.json');
 }
 function convertPhrase(message)
@@ -109,7 +114,7 @@ module.exports =
 
     if(newmessage == "weirdo") { addBiasForChoice(lastchoice, -0.5); }
     if(newmessage == "yeye") { addBiasForChoice(lastchoice, 0.5); } 
-    if(newmessage == "reset yourself") { resetBiases(); }
+    if(newmessage == "reset yourself") { resetAI(); }
     var answer = answerPhrase(newmessage);
 
 
