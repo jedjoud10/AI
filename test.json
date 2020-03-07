@@ -1,0 +1,25 @@
+[
+	{
+		"message" : "Hi",
+		"output" : "Hello <username> , how are you today ?",
+		"bias" : 1.0,
+		"count" : 1,
+		"followUps" : [1, 2]
+	},
+	{
+		"message" : "Im sad",
+		"output" : "Aww why ?",
+		"bias" : 1.0,
+		"count" : 1,
+		"followUps" : [1, 5]
+	},	
+	{
+		"message" : "Im happy",
+		"output" : "Hello <username> !",
+		"bias" : 1.0,
+		"count" : 1,
+		"followUps" : [1, 5]
+	},
+
+
+]

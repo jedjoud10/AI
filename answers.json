@@ -4,8 +4,8 @@
         "outputChoices": [
             {
                 "choice": "Hi ! How are you today, <username> ?",
-                "bias": 1,
-                "count": 1
+                "bias": 0.95,
+                "count": 2,
             },
             {
                 "choice": "How are you today, <username> ?",
@@ -19,8 +19,8 @@
         "outputChoices": [
             {
                 "choice": "Aw that's not cool. Why are you sad <username> ?",
-                "bias": 1,
-                "count": 1
+                "bias": 0.95,
+                "count": 2
             },
             {
                 "choice": "What happened <username> ?",
@@ -49,8 +49,8 @@
         "outputChoices": [
             {
                 "choice": "Okay then, <username> ;-;",
-                "bias": 1,
-                "count": 1
+                "bias": 0.95,
+                "count": 2
             },
             {
                 "choice": "With what ?",
@@ -72,6 +72,36 @@
                 "bias": 1,
                 "count": 1
             }
+        ]
+    },
+    {
+        "message": "What is your opinion on wowex",
+        "outputChoices": [
+            {
+                "choice": "He is kinda cringe",
+                "bias": 1,
+                "count": 1
+            },
+            {
+                "choice": "He's my least favorite person",
+                "bias": 1,
+                "count": 1
+            },
+            {
+                "choice": "He makes me wanna dance",
+                "bias": 1,
+                "count": 1
+            },
+            {
+                "choice": "He's ugly af",
+                "bias": 1,
+                "count": 1
+            },
+            {
+                "choice": "He be kinda cute ngl",
+                "bias": 1,
+                "count": 1
+            },
         ]
     }
 ]
