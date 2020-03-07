@@ -11,71 +11,47 @@ function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min) ) + min;
 }
 var lastchoice;
+lastchoice = {"choice" : "", "bias" : 1.0, "count" : 1, "followup" : -1};
 
 function answerPhrase(message)
 {
   var answers = read('./answers.json');
-  var highestBias = -999;
-  var bestChoice;
-  var bestChoiceIndex;
-  var biasWeight = -0.1;
-  for(var m = 0; m < answers.length; m++)
+  var outcomes;
+  var bestchoice;
+  var highestbias = -9999;
+  var biasweight;
+  var choices;
+  for(var m = 0; m < ansers.length; m++)
   {
-    var choices = answers[m].outputChoices;
     if(answers[m].message == message)
-    {      
-      for(var a = 0; a < choices.length; a++)
+    {
+      var outcomes = answers[m].outcomes;
+      for(var o = 0; o < outcomes.length; o++)
       {
-        if(choices[a].bias > highestBias)
+        if(outcomes[o].comesfrom == lastchoice.followup)
         {
-          highestBias = choices[a].bias;
-          bestChoice = choices[a];
-          bestchoiceIndex = a;
+          for (var c = 0; c < choices.length; c++) 
+          {
+            if(choices[c].bias > highestbias)
+            {
+              bestchoice = choices[c];
+              highestbias = choices[c].bias;
+            }  
+          }
+          choice.count += 1;
+          choice.bias += biasweight / choice.count;
+          choices[c] = choice;
         }
       }
-      bestChoice.count += 1;
-      bestChoice.bias += biasWeight / bestChoice.count;
-      //console.log(answers[m].outputChoices[bestchoiceIndex]);
-      answers[m].outputChoices[bestchoiceIndex] = answers[m].outputChoices[bestchoiceIndex];
-      //console.log(answers);
-      write(answers, './answers.json');
-      lastchoice = bestChoice;
-      return bestChoice.choice;
+      outcomes.choices = choices;
+      answers[m].outcomes = outcomes;
+      return choice;
     }
   }
+  
 }
-function addBiasForChoice(choice, bias)
-{
-  var answers = read('./answers.json');
-  for(var m = 0; m < answers.length; m++)
-  {
-    for(var a = 0 ; a < answers[m].outputChoices.length; a++)
-    {
-      if(answers[m].outputChoices[a].message == choice.message)
-      {
-        answers[m].outputChoices[a].bias += bias / answers[m].outputChoices[a].count;
-        write(answers, './answers.json');
-        return;
-      }
-    }
-  }
-}
-function resetAI()
-{
-  var answers = read('./answers.json');
-  var data = read('./data.json');
-  for (var m = 0; m < answers.length; m++) 
-  {    
-    for (var a = 0; a < answers[m].outputChoices.length; a++) 
-    {
-      answers[m].outputChoices[a].count = 1;  
-      answers[m].outputChoices[a].bias = 1; 
-    }
-  }
-  data.username = "";
-  write(data, './data.json');
-  write(answers, './answers.json');
-}
+
+
 function convertPhrase(message)
 {
   if(message == "" || message == null) return "";
@@ -112,9 +88,6 @@ module.exports =
     } 
     else newmessage = newmessage.toLowerCase();
 
-    if(newmessage == "weirdo") { addBiasForChoice(lastchoice, -0.5); }
-    if(newmessage == "yeye") { addBiasForChoice(lastchoice, 0.5); } 
-    if(newmessage == "reset yourself") { resetAI(); }
     var answer = answerPhrase(newmessage);
 
 

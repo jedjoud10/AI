@@ -1,25 +1,31 @@
 [
 	{
-		"message" : "Hi",
-		"output" : "Hello <username> , how are you today ?",
-		"bias" : 1.0,
-		"count" : 1,
-		"followUps" : [1, 2]
+		"message" : "KYS please",
+		"outcomes" : 
+		[
+			{"comesFrom" : -1, "choices" : 
+				[
+					{"choice" : "Okay, with what ?", "bias" : 1.0, "count" : 1},
+					{"choice" : "Okay ;-;", "bias" : 1.0, "count" : 1}
+				]
+			},
+		]
 	},
 	{
-		"message" : "Im sad",
-		"output" : "Aww why ?",
-		"bias" : 1.0,
-		"count" : 1,
-		"followUps" : [1, 5]
-	},	
-	{
-		"message" : "Im happy",
-		"output" : "Hello <username> !",
-		"bias" : 1.0,
-		"count" : 1,
-		"followUps" : [1, 5]
-	},
+		"message" : "knife",
+		"outcomes" : 
+		[
+			{"comesFrom" : 0, "choices" : 
+				[
+					{"choice" : "Aight, i'll kill myself with a knife then", "bias" : 1.0, "count" : 1}
 
-
+				]
+			},
+			{"comesFrom" : -1, "choices" : 
+				[
+					{"choice" : "What about the knife ?", "bias" : 1.0, "count" : 1}
+				]
+			}
+		]
+	}
 ]

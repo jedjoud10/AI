@@ -1,107 +1,26 @@
 [
-    {
-        "message": "hi",
-        "outputChoices": [
-            {
-                "choice": "Hi ! How are you today, <username> ?",
-                "bias": 0.95,
-                "count": 2,
-            },
-            {
-                "choice": "How are you today, <username> ?",
-                "bias": 1,
-                "count": 1
-            }
-        ]
-    },
-    {
-        "message": "im sad",
-        "outputChoices": [
-            {
-                "choice": "Aw that's not cool. Why are you sad <username> ?",
-                "bias": 0.95,
-                "count": 2
-            },
-            {
-                "choice": "What happened <username> ?",
-                "bias": 1,
-                "count": 1
-            }
-        ]
-    },
-    {
-        "message": "im happy",
-        "outputChoices": [
-            {
-                "choice": "That is very nice, <username> ",
-                "bias": 1,
-                "count": 1
-            },
-            {
-                "choice": "Me too ^",
-                "bias": 1,
-                "count": 1
-            }
-        ]
-    },
-    {
-        "message": "go kys",
-        "outputChoices": [
-            {
-                "choice": "Okay then, <username> ;-;",
-                "bias": 0.95,
-                "count": 2
-            },
-            {
-                "choice": "With what ?",
-                "bias": 1,
-                "count": 1
-            }
-        ]
-    },
-    {
-        "message": "I love you",
-        "outputChoices": [
-            {
-                "choice": "Me too, <username>~",
-                "bias": 1,
-                "count": 1
-            },
-            {
-                "choice": "Awww that's sweet",
-                "bias": 1,
-                "count": 1
-            }
-        ]
-    },
-    {
-        "message": "What is your opinion on wowex",
-        "outputChoices": [
-            {
-                "choice": "He is kinda cringe",
-                "bias": 1,
-                "count": 1
-            },
-            {
-                "choice": "He's my least favorite person",
-                "bias": 1,
-                "count": 1
-            },
-            {
-                "choice": "He makes me wanna dance",
-                "bias": 1,
-                "count": 1
-            },
-            {
-                "choice": "He's ugly af",
-                "bias": 1,
-                "count": 1
-            },
-            {
-                "choice": "He be kinda cute ngl",
-                "bias": 1,
-                "count": 1
-            },
-        ]
-    }
+	{
+		"message" : "Hi",
+		"outcomes" :
+		[
+			{"comesfrom" : -1, "choices" : 
+				[
+					{"choice" : "Hi <username> !", "bias" : 1.0, "count" : 1, "followup" : -1},
+					{"choice" : "Hello, <username>", "bias" : 1.0, "count" : 1, "followup" : -1}
+				]
+			},
+		]
+	},
+	{
+		"message" : "Hi",
+		"outcomes" :
+		[
+			{"comesfrom" : -1, "choices" : 
+				[
+					{"choice" : "Hi <username> !", "bias" : 1.0, "count" : 1, "followup" : -1},
+					{"choice" : "Hello, <username>", "bias" : 1.0, "count" : 1, "followup" : -1}
+				]
+			},
+		]
+	}
 ]
