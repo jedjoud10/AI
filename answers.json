@@ -1,26 +1,129 @@
 [
-	{
-		"message" : "Hi",
-		"outcomes" :
-		[
-			{"comesfrom" : -1, "choices" : 
-				[
-					{"choice" : "Hi <username> !", "bias" : 1.0, "count" : 1, "followup" : -1},
-					{"choice" : "Hello, <username>", "bias" : 1.0, "count" : 1, "followup" : -1}
-				]
-			},
-		]
-	},
-	{
-		"message" : "Hi",
-		"outcomes" :
-		[
-			{"comesfrom" : -1, "choices" : 
-				[
-					{"choice" : "Hi <username> !", "bias" : 1.0, "count" : 1, "followup" : -1},
-					{"choice" : "Hello, <username>", "bias" : 1.0, "count" : 1, "followup" : -1}
-				]
-			},
-		]
-	}
+    {
+        "message": "hi",
+        "outcomes": [
+            {
+                "comesfrom": -1,
+                "choices": [
+                    {
+                        "choice": "Hi <username> ! How are you today ?",
+                        "bias": 0.95,
+                        "count": 2,
+                        "followup": 0
+                    },
+                    {
+                        "choice": "Hello, <username>",
+                        "bias": 1,
+                        "count": 1,
+                        "followup": -1
+                    },
+                    {
+                        "choice": "Nice to see you today, <username>",
+                        "bias": 1,
+                        "count": 1,
+                        "followup": -1
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "message": "im happy",
+        "outcomes": [
+            {
+                "comesfrom": 0,
+                "choices": [
+                    {
+                        "choice": "Hopefully I can make you happier. Hehe~",
+                        "bias": 1,
+                        "count": 1,
+                        "followup": -1
+                    },
+                    {
+                        "choice": "Me too~",
+                        "bias": 1,
+                        "count": 1,
+                        "followup": -1
+                    }
+                ]
+            },
+            {
+                "comesfrom": -1,
+                "choices": [
+                    {
+                        "choice": "That's nice to hear, <username>",
+                        "bias": 1,
+                        "count": 1,
+                        "followup": -1
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "message": "im sad",
+        "outcomes": [
+            {
+                "comesfrom": 0,
+                "choices": [
+                    {
+                        "choice": "Aww, why is that ?",
+                        "bias": 0.95,
+                        "count": 2,
+                        "followup": -1
+                    },
+                    {
+                        "choice": "That's not very nice... I wish I could hug you now...",
+                        "bias": 1,
+                        "count": 1,
+                        "followup": -1
+                    }
+                ]
+            },
+            {
+                "comesfrom": -1,
+                "choices": [
+                    {
+                        "choice": "What happened, <username> ?",
+                        "bias": 1,
+                        "count": 1,
+                        "followup": -1
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "message": "im good",
+        "outcomes": [
+            {
+                "comesfrom": 0,
+                "choices": [
+                    {
+                        "choice": "Nice ! How was you'r day today ?",
+                        "bias": 1,
+                        "count": 1,
+                        "followup": -1
+                    },
+                    {
+                        "choice": "Very cool",
+                        "bias": 1,
+                        "count": 1,
+                        "followup": -1
+                    }
+                ]
+            },
+            {
+                "comesfrom": -1,
+                "choices": [
+                    {
+                        "choice": "So you feel happy ? If you feel happy I also feel happy, <username>~",
+                        "bias": 1,
+                        "count": 1,
+                        "followup": -1
+                    }
+                ]
+            }
+        ]
+    }
 ]

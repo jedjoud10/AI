@@ -19,38 +19,76 @@ function answerPhrase(message)
   var outcomes;
   var bestchoice;
   var highestbias = -9999;
-  var biasweight;
+  var biasweight = -0.1;
   var choices;
-  for(var m = 0; m < ansers.length; m++)
+  for(var m = 0; m < answers.length; m++)
   {
     if(answers[m].message == message)
     {
+      console.log("Found same message");
       var outcomes = answers[m].outcomes;
+      console.log("Outcomes " + outcomes.length);
       for(var o = 0; o < outcomes.length; o++)
       {
+        console.log("Currentoutcome.comesfrom : " + outcomes[o].comesfrom + " | " + " Lastchoice.followup : " + lastchoice.followup)
         if(outcomes[o].comesfrom == lastchoice.followup)
         {
+          //Is a follow up
+          console.log("Is a follow up");
+          choices = outcomes[o].choices;
           for (var c = 0; c < choices.length; c++) 
           {
             if(choices[c].bias > highestbias)
             {
               bestchoice = choices[c];
               highestbias = choices[c].bias;
+              console.log(highestbias);
             }  
           }
-          choice.count += 1;
-          choice.bias += biasweight / choice.count;
-          choices[c] = choice;
+          var index = choices.indexOf(bestchoice)
+          bestchoice.count += 1;
+          bestchoice.bias += biasweight / bestchoice.count;
+          console.log("New updated choice :")
+          console.log(bestchoice);
+          choices[index] = bestchoice;
         }
       }
       outcomes.choices = choices;
       answers[m].outcomes = outcomes;
-      return choice;
+      lastchoice = bestchoice;
+      write(answers, './answers.json')
+      return bestchoice;
     }
   }
   
 }
+function reset()
+{
+  var data = read('./data.json');
+  data.username = "";
+  username = "";
+  write(data, './data.json');
 
+  var answers = read('./answers.json');
+  var outcomes;
+  var choices;
+  for(var m = 0; m < answers.length; m++)
+  {
+    outcomes = answers[m].outcomes;    
+    for(var o = 0; o < outcomes.length; o++)
+    {
+      choices = outcomes[o].choices;
+      for(var c = 0; c < choices.length; c++)
+      {
+        choices[c].bias = 1.0;
+        choices[c].count = 1;
+      }
+    }
+    outcomes.choices = choices;
+    answers[m].outcomes = outcomes;
+  }
+  write(answers, './answers.json')
+}
 
 function convertPhrase(message)
 {
@@ -87,10 +125,13 @@ module.exports =
       write(olddata, './data.json');
     } 
     else newmessage = newmessage.toLowerCase();
+    if(newmessage == "reset")
+    { reset(); return "Finished reset" };
+
+
 
     var answer = answerPhrase(newmessage);
-
-
+    if(answer != null) answer = answer.choice;
     output = convertPhrase(answer);
     return output;
   }
