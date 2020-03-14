@@ -37,10 +37,11 @@ function answerPhrase(message)
     var newResponse = 
     {
       "message" : message,
-      "outcomes" : generateOutcomes(phrases, messageindex)
+      "outcomes" : generateOutcomes(phrases, messageindex, net)
     }
     net.unshift(newResponse);
   }  
+  write(net, './net.json');
   
   //MAIN LOOP
   var highestbias = -999;
@@ -53,17 +54,17 @@ function answerPhrase(message)
     if(net[i].message == message)
     {
       for (var j = 0; j < net[i].outcomes.length; j++) {
-        if (net[i].outcomes[j].comesfrom == lastchoice.followup) 
-        {
-          var choices = net[i].outcomes[j].answers;
-          var index;
-          for (var k = 0; k < choices.length; k++) {
-            if(choices[k].bias > highestbias)
-            {
-              highestbias = choices[k].bias;
-              bestchoice = choices[k];
-              index = k;
-            }
+          if (net[i].outcomes[j].comesfrom == lastchoice.followup) 
+          {
+            var choices = net[i].outcomes[j].answers;
+            var index;
+            for (var k = 0; k < choices.length; k++) {
+              if(choices[k].bias > highestbias)
+              {
+                highestbias = choices[k].bias;
+                bestchoice = choices[k];
+                index = k;
+              }
           }          
           bestchoice.count += 1;
           bestchoice.bias += biaschange / bestchoice.count;
@@ -83,32 +84,42 @@ function answerPhrase(message)
 
 
 }
-function generateOutcomes(phrases, thisid)
-{
-  var outcomes = [];
-  for (var i = -1; i < phrases.length; i++) {
+function generateOutcomes(phrases, thisid, net)//for a single message
+{ 
+  var outcomes = net[thisid].outcomes; 
+  for (var i = -1; i < outcomes.length; i++)//comesfrom array
+  {
     var answers = [];
-    if(i == thisid) continue;
-    for (var j = 0; j < phrases.length; j++) {
-      if(j == thisid) continue;
-      for (var k = -1; k < phrases.length; k++) {
-        if(k == thisid || k == i) continue;
-        answers.unshift(
-        {
-          "out" : phrases[j],
-          "bias" : 1.0,
-          "count" : 1,
-          "followup" : k
-        });
-      }
-    }
-    outcomes.unshift(
+    if(outcomes[i] != null)
+    {
+      answers = outcomes[i].answers;
+    }    
+    for (var j = 0; j < phrases.length; j++) //answers array
+    {
+      var followups = [];
+      if(answers[j] != null)
       {
-        "comesfrom" : i,
-        "answers" : answers
-      });
+        followups = answers[j];
+      }
+      for (var k = -1; k < phrases.length; k++) //followup array
+      {
+        if (followups[k] == null) 
+        {
+          followups.unshift(
+          {
+            "out": phrases[j],
+            "bias": 1.0,
+            "count": 1,
+            "followup": k                          
+          });
+        }
+      }
+      answers[j] = followups;
+    }
+    outcomes[i].answers = answers;
   }
-  return outcomes;
+  net[thisid].outcomes = outcomes;
+  return net[thisid].outcomes;
 }
 function reset()
 {
