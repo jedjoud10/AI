@@ -1,0 +1,94 @@
+[
+    {
+        "message": "hi",
+        "outcomes": [
+            {
+                "comesfrom": 2,
+                "answers": [
+                    {
+                        "out": "how are you ?",
+                        "bias": 0.5,
+                        "count": 2,
+                        "followup": 1
+                    },
+                    {
+                        "out": "how are you ?",
+                        "bias": 0.5,
+                        "count": 2,
+                        "followup": -1
+                    },
+                    {
+                        "out": "hi",
+                        "bias": 0.5,
+                        "count": 2,
+                        "followup": 1
+                    },
+                    {
+                        "out": "hi",
+                        "bias": 1,
+                        "count": 1,
+                        "followup": -1
+                    }
+                ]
+            },
+            {
+                "comesfrom": 1,
+                "answers": [
+                    {
+                        "out": "how are you ?",
+                        "bias": 0.5,
+                        "count": 2,
+                        "followup": 2
+                    },
+                    {
+                        "out": "how are you ?",
+                        "bias": 0.5,
+                        "count": 2,
+                        "followup": -1
+                    },
+                    {
+                        "out": "hi",
+                        "bias": 0.5,
+                        "count": 2,
+                        "followup": 2
+                    },
+                    {
+                        "out": "hi",
+                        "bias": 0.5,
+                        "count": 2,
+                        "followup": -1
+                    }
+                ]
+            },
+            {
+                "comesfrom": -1,
+                "answers": [
+                    {
+                        "out": "how are you ?",
+                        "bias": -0.08333333333333331,
+                        "count": 4,
+                        "followup": 2
+                    },
+                    {
+                        "out": "how are you ?",
+                        "bias": 0.16666666666666669,
+                        "count": 3,
+                        "followup": 1
+                    },
+                    {
+                        "out": "hi",
+                        "bias": 0.16666666666666669,
+                        "count": 3,
+                        "followup": 2
+                    },
+                    {
+                        "out": "hi",
+                        "bias": 0.16666666666666669,
+                        "count": 3,
+                        "followup": 1
+                    }
+                ]
+            }
+        ]
+    }
+]

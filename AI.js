@@ -10,57 +10,105 @@ function write(data, path) { fs.writeFileSync(path, null); fs.writeFileSync(path
 function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min) ) + min;
 }
-var lastchoice;
-lastchoice = {"choice" : "", "bias" : 1.0, "count" : 1, "followup" : -1};
+var lastchoice = 
+{
+  "out": "",
+  "bias": 1,
+  "count": 1,
+  "followup": -1
+}
 
 function answerPhrase(message)
 {
-  var answers = read('./answers.json');
-  var outcomes;
-  var bestchoice;
-  var highestbias = -9999;
-  var biasweight = -0.1;
-  var choices;
-  for(var m = 0; m < answers.length; m++)
-  {
-    if(answers[m].message == message)
+  var net = read('./net.json');
+  var phrases = read('./phrases.json');
+  var doesInclude = false;
+  var messageindex = 0;
+  for (var i = 0; i < net.length; i++) {
+    if(net[i].message == message)
     {
-      console.log("Found same message");
-      var outcomes = answers[m].outcomes;
-      console.log("Outcomes " + outcomes.length);
-      for(var o = 0; o < outcomes.length; o++)
-      {
-        console.log("Currentoutcome.comesfrom : " + outcomes[o].comesfrom + " | " + " Lastchoice.followup : " + lastchoice.followup)
-        if(outcomes[o].comesfrom == lastchoice.followup)
-        {
-          //Is a follow up
-          console.log("Is a follow up");
-          choices = outcomes[o].choices;
-          for (var c = 0; c < choices.length; c++) 
-          {
-            if(choices[c].bias > highestbias)
-            {
-              bestchoice = choices[c];
-              highestbias = choices[c].bias;
-              console.log(highestbias);
-            }  
-          }
-          var index = choices.indexOf(bestchoice)
-          bestchoice.count += 1;
-          bestchoice.bias += biasweight / bestchoice.count;
-          console.log("New updated choice :")
-          console.log(bestchoice);
-          choices[index] = bestchoice;
-        }
-      }
-      outcomes.choices = choices;
-      answers[m].outcomes = outcomes;
-      lastchoice = bestchoice;
-      write(answers, './answers.json')
-      return bestchoice;
+      messageindex = i;
+      doesInclude = true;
+      break;
     }
   }
+  if(!doesInclude)
+  {
+    var newResponse = 
+    {
+      "message" : message,
+      "outcomes" : generateOutcomes(phrases, messageindex)
+    }
+    net.unshift(newResponse);
+  }  
   
+  //MAIN LOOP
+  var highestbias = -999;
+  var biaschange = -1;
+  var bestchoice;
+  for (var i = 0; i < net.length; i++) {
+
+    //net[i].outcomes = generateOutcomes(phrases, i)
+
+    if(net[i].message == message)
+    {
+      for (var j = 0; j < net[i].outcomes.length; j++) {
+        if (net[i].outcomes[j].comesfrom == lastchoice.followup) 
+        {
+          var choices = net[i].outcomes[j].answers;
+          var index;
+          for (var k = 0; k < choices.length; k++) {
+            if(choices[k].bias > highestbias)
+            {
+              highestbias = choices[k].bias;
+              bestchoice = choices[k];
+              index = k;
+            }
+          }          
+          bestchoice.count += 1;
+          bestchoice.bias += biaschange / bestchoice.count;
+          choices[index] = bestchoice;
+          net[i].outcomes[j].answers = choices;
+          lastchoice = bestchoice;
+          write(phrases, './phrases.json');
+          write(net, './net.json');
+          return bestchoice;
+
+        }
+      }
+    }
+  }
+
+
+
+
+}
+function generateOutcomes(phrases, thisid)
+{
+  var outcomes = [];
+  for (var i = -1; i < phrases.length; i++) {
+    var answers = [];
+    if(i == thisid) continue;
+    for (var j = 0; j < phrases.length; j++) {
+      if(j == thisid) continue;
+      for (var k = -1; k < phrases.length; k++) {
+        if(k == thisid || k == i) continue;
+        answers.unshift(
+        {
+          "out" : phrases[j],
+          "bias" : 1.0,
+          "count" : 1,
+          "followup" : k
+        });
+      }
+    }
+    outcomes.unshift(
+      {
+        "comesfrom" : i,
+        "answers" : answers
+      });
+  }
+  return outcomes;
 }
 function reset()
 {
@@ -70,23 +118,7 @@ function reset()
   write(data, './data.json');
 
   var answers = read('./answers.json');
-  var outcomes;
-  var choices;
-  for(var m = 0; m < answers.length; m++)
-  {
-    outcomes = answers[m].outcomes;    
-    for(var o = 0; o < outcomes.length; o++)
-    {
-      choices = outcomes[o].choices;
-      for(var c = 0; c < choices.length; c++)
-      {
-        choices[c].bias = 1.0;
-        choices[c].count = 1;
-      }
-    }
-    outcomes.choices = choices;
-    answers[m].outcomes = outcomes;
-  }
+  answers = [];
   write(answers, './answers.json')
 }
 
@@ -131,8 +163,8 @@ module.exports =
 
 
     var answer = answerPhrase(newmessage);
-    if(answer != null) answer = answer.choice;
-    output = convertPhrase(answer);
+    console.log(answer);
+    if(answer != null) output = convertPhrase(answer.out);    
     return output;
   }
 }
